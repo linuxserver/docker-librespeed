@@ -1,0 +1,60 @@
+---
+
+# project information
+project_name: librespeed
+project_url: "https://github.com/librespeed/speedtest"
+project_logo: "https://raw.githubusercontent.com/librespeed/speedtest/master/.logo/logo3.png"
+project_blurb: "[{{ project_name|capitalize }}]({{ project_url }}) is a very lightweight Speedtest implemented in Javascript, using XMLHttpRequest and Web Workers.
+ 
+No Flash, No Java, No Websocket, No Bullshit."
+project_lsio_github_repo_url: "https://github.com/linuxserver/docker-{{ project_name }}"
+
+# supported architectures
+available_architectures:
+  - { arch: "{{ arch_x86_64 }}", tag: "amd64-latest"}
+  - { arch: "{{ arch_arm64 }}", tag: "arm64v8-latest"}
+  - { arch: "{{ arch_armhf }}", tag: "arm32v7-latest"}
+
+# development version
+development_versions: false
+development_versions_items:
+  - { tag: "latest", desc: "Stable releases" }
+
+# container parameters
+common_param_env_vars_enabled: true
+param_container_name: "{{ project_name }}"
+param_usage_include_vols: true
+param_volumes:
+  - { vol_path: "/config", vol_host_path: "/path/to/appdata/config", desc: "Contains all relevant configuration files." }
+param_usage_include_ports: true
+param_ports:
+  - { external_port: "80", internal_port: "80", port_desc: "web gui" }
+param_usage_include_env: true
+param_env_vars:
+  - { env_var: "TZ", env_value: "Europe/London", desc: "Specify a timezone to use EG Europe/London"}
+  - { env_var: "PASSWORD", env_value: "PASSWORD", desc: "Set the password for the results database."}
+
+# optional container parameters
+opt_param_usage_include_env: true
+opt_param_env_vars:
+  - { env_var: "DB_TYPE", env_value: "sqlite", desc: "Defaults to `sqlite`, can also be set to `mysql` or `postgresql`."}
+  - { env_var: "DB_NAME", env_value: "DB_NAME", desc: "Database name. Required for mysql and pgsql."}
+  - { env_var: "DB_HOSTNAME", env_value: "DB_HOSTNAME", desc: "Database address. Required for mysql and pgsql."}
+  - { env_var: "DB_USERNAME", env_value: "DB_USERNAME", desc: "Database username. Required for mysql and pgsql."}
+  - { env_var: "DB_PASSWORD", env_value: "DB_PASSWORD", desc: "Database password. Required for mysql and pgsql."}
+
+optional_block_1: false
+optional_block_1_items: ""
+
+# application setup block
+app_setup_block_enabled: true
+app_setup_block: |
+  Access the speedtest webui at `http://<server-ip>`.  
+  The results database can be accessed at `http://<server-ip>/results/stats.php`.  
+  The default template used is based on `example-singleServer-full.html`. However, all templates are provided for reference at `/config/www/`. If you place a custom file at `/config/www/index.html`, the custom file will be served after a container restart. Delete the file and restart to go back to the default.  
+  You can optionally place customized `speedtest.js` and `speedtest_worker.js` files under `/config/www` and they will supersede the defaults after a container start. Keep in mind that once you do so, they will no longer be updated. You can delete them and recreate the container to go back to the image defaults.  
+
+
+# changelog
+changelogs:
+  - { date: "06.01.20:", desc: "Initial Release." }
