@@ -1,0 +1,54 @@
+#!/usr/bin/with-contenv bash
+
+# make our folders
+mkdir -p \
+	/config/www
+
+# create index.html
+if [ -f /config/www/index.html ]; then
+	cp /config/www/index.html /usr/share/webapps/librespeed/index.html
+else
+	cp /defaults/index.html /usr/share/webapps/librespeed/index.html
+fi
+
+# update templates
+cp /usr/share/webapps/librespeed/example*.html /config/www/
+
+# use custom js files if exist
+[[ -f /config/www/speedtest.js ]] && \
+	cp /config/www/speedtest.js /usr/share/webapps/librespeed/speedtest.js
+[[ -f /config/www/speedtest_worker.js ]] && \
+	cp /config/www/speedtest_worker.js /usr/share/webapps/librespeed/speedtest_worker.js
+
+# configure app settings
+sed -i "\
+	s|\$Sqlite_db_file = \"../../speedtest_telemetry.sql\";|\$Sqlite_db_file = \"/config/speedtest_telemetry.sql\";|g; \
+	s|\$enable_id_obfuscation=false;|\$enable_id_obfuscation=true;|g;
+	s|\$stats_password=\"PASSWORD\";|\$stats_password=\"${PASSWORD}\";|g" \
+	/usr/share/webapps/librespeed/results/telemetry_settings.php
+if [ "$DB_TYPE" = "postgresql" ]; then
+	sed -i "\
+		s|\$db_type=\"mysql\";|\$db_type=\"${DB_TYPE}\";|g \
+		s|\$PostgreSql_username=\"USERNAME\";|\$PostgreSql_username=\"${DB_USERNAME}\";|g; \
+		s|\$PostgreSql_password=\"PASSWORD\";|\$PostgreSql_password=\"${DB_PASSWORD}\";|g; \
+		s|\$PostgreSql_hostname=\"DB_HOSTNAME\";|\$PostgreSql_hostname=\"${DB_HOSTNAME}\";|g; \
+		s|\$PostgreSql_databasename=\"DB_NAME\";|\$PostgreSql_databasename=\"${DB_NAME}\";|g" \
+		/usr/share/webapps/librespeed/results/telemetry_settings.php
+elif [ "$DB_TYPE" = "mysql" ]; then
+	sed -i "\
+		s|\$MySql_username=\"USERNAME\";|\$MySql_username=\"${DB_USERNAME}\";|g; \
+		s|\$MySql_password=\"PASSWORD\";|\$MySql_password=\"${DB_PASSWORD}\";|g; \
+		s|\$MySql_hostname=\"DB_HOSTNAME\";|\$MySql_hostname=\"${DB_HOSTNAME}\";|g; \
+		s|\$MySql_databasename=\"DB_NAME\";|\$MySql_databasename=\"${DB_NAME}\";|g" \
+		/usr/share/webapps/librespeed/results/telemetry_settings.php
+else
+	sed -i \
+		"s|\$db_type=\"mysql\";|\$db_type=\"sqlite\";|g" \
+		/usr/share/webapps/librespeed/results/telemetry_settings.php
+fi
+
+# permissions
+echo "Setting permissions"
+chown -R abc:abc \
+	/usr/share/webapps/librespeed \
+	/config
