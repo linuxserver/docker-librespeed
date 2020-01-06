@@ -4,12 +4,9 @@
 mkdir -p \
 	/config/www
 
-# create index.html
-if [ -f /config/www/index.html ]; then
-	cp /config/www/index.html /usr/share/webapps/librespeed/index.html
-else
-	cp /defaults/index.html /usr/share/webapps/librespeed/index.html
-fi
+# create symlink to index.html
+[[ ! -L /usr/share/webapps/librespeed/index.html ]] && \
+	ln -s /config/www/index.html /usr/share/webapps/librespeed/index.html
 
 # update templates
 cp /usr/share/webapps/librespeed/example*.html /config/www/
