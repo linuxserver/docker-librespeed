@@ -59,4 +59,5 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "29.04.20:", desc: "Add donation links for LibreSpeed to Github sponsor button and container log." }
   - { date: "09.01.20:", desc: "Initial Release." }
