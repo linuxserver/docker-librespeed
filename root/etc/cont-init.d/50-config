@@ -48,22 +48,6 @@ elif [ "$DB_TYPE" = "mysql" ]; then
 		s|\$MySql_hostname=\"DB_HOSTNAME\";|\$MySql_hostname=\"${DB_HOSTNAME}\";|g; \
 		s|\$MySql_databasename=\"DB_NAME\";|\$MySql_databasename=\"${DB_NAME}\";|g" \
 		/usr/share/webapps/librespeed/results/telemetry_settings.php
-# elif [ "$ALEX" = "true" ]; then
-# 	echo "1"
-	#[[ ! -e "/config/results/index.php" ]] && \
-		#mv /usr/share/webapps/librespeed/results/index.php /config/results/index.php
-	#ln -sf /config/results/index.php /usr/share/webapps/librespeed/results/index.php
-
-	# [[ ! -L /config/www/results ]] && \
-	# 	mkdir -p /config/www/results && \
-	# # update results/index.php
-	# [[ ! -L /config/www/results/index.php ]] && \
-	# 	cp /usr/share/webapps/librespeed/results/index.php /config/www/results/index.php
-	# # symlink results file
-	# rm /usr/share/webapps/librespeed/results/index.php
-	# ln -s /config/www/results/index.php /usr/share/webapps/librespeed/results/index.php
-	# chmod -R 664 /config/www/results
-	# chmod +x /config/www/results
 else
 	sed -i \
 		"s|\$db_type=\"mysql\";|\$db_type=\"sqlite\";|g" \
