@@ -58,7 +58,7 @@ app_setup_block: |
   If you are setting up a mysql or postgresql database, you first need to import the tables into your database as described at the following link  
   https://github.com/librespeed/speedtest/blob/master/doc.md#creating-the-database
 
-  To enable a custom results page set the environment variable `CUSTOM_RESULTS` and start (or restart) the container at least once for `/config/www/results/index.php` to be created and modify this file to your liking.
+  To enable a custom results page set the environment variable `CUSTOM_RESULTS=true` and start (or restart) the container at least once for `/config/www/results/index.php` to be created and modify this file to your liking.
 
 # changelog
 changelogs:
