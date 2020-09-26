@@ -37,6 +37,7 @@ param_env_vars:
 # optional container parameters
 opt_param_usage_include_env: true
 opt_param_env_vars:
+  - { env_var: "CUSTOM_RESULTS", env_value: "true", desc: "(optional) enables custom results page in `/config/www/results/index.php`."}
   - { env_var: "DB_TYPE", env_value: "sqlite", desc: "Defaults to `sqlite`, can also be set to `mysql` or `postgresql`."}
   - { env_var: "DB_NAME", env_value: "DB_NAME", desc: "Database name. Required for mysql and pgsql."}
   - { env_var: "DB_HOSTNAME", env_value: "DB_HOSTNAME", desc: "Database address. Required for mysql and pgsql."}
@@ -56,6 +57,8 @@ app_setup_block: |
   
   If you are setting up a mysql or postgresql database, you first need to import the tables into your database as described at the following link  
   https://github.com/librespeed/speedtest/blob/master/doc.md#creating-the-database
+
+  To enable a custom results page set the environment variable `CUSTOM_RESULTS=true` and start (or restart) the container at least once for `/config/www/results/index.php` to be created and modify this file to your liking.
 
 # changelog
 changelogs:

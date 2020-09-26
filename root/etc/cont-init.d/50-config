@@ -2,7 +2,8 @@
 
 # make our folders
 mkdir -p \
-	/config/www
+	/config/www \
+	/config/www/img
 
 # create symlink to index.html
 [[ ! -L /usr/share/webapps/librespeed/index.html ]] && \
@@ -16,6 +17,15 @@ cp /usr/share/webapps/librespeed/example*.html /config/www/
 	cp /config/www/speedtest.js /usr/share/webapps/librespeed/speedtest.js
 [[ -f /config/www/speedtest_worker.js ]] && \
 	cp /config/www/speedtest_worker.js /usr/share/webapps/librespeed/speedtest_worker.js
+
+# enables custom results page
+if "$CUSTOM_RESULTS"; then
+	echo "custom results"
+	[[ ! -e "/config/www/results/index.php" ]] && \
+		mkdir -p /config/www/results/ && \
+		mv /usr/share/webapps/librespeed/results/index.php /config/www/results/index.php
+	ln -sf /config/www/results/index.php /usr/share/webapps/librespeed/results/index.php
+fi
 
 # configure app settings
 sed -i "\
