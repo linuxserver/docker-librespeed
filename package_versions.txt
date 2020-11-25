@@ -30,7 +30,7 @@ libjpeg-turbo-2.0.5-r0
 libldap-2.4.50-r0
 libmagic-5.38-r0
 libpng-1.6.37-r1
-libpq-12.4-r0
+libpq-12.5-r0
 libproc-3.3.16-r0
 libressl3.1-libcrypto-3.1.2-r0
 libressl3.1-libssl-3.1.2-r0
