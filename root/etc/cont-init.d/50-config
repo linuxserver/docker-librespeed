@@ -35,7 +35,7 @@ sed -i "\
 	/usr/share/webapps/librespeed/results/telemetry_settings.php
 if [ "$DB_TYPE" = "postgresql" ]; then
 	sed -i "\
-		s|\$db_type=\"mysql\";|\$db_type=\"${DB_TYPE}\";|g \
+		s|\$db_type=\"postgresql\";|\$db_type=\"${DB_TYPE}\";|g \
 		s|\$PostgreSql_username=\"USERNAME\";|\$PostgreSql_username=\"${DB_USERNAME}\";|g; \
 		s|\$PostgreSql_password=\"PASSWORD\";|\$PostgreSql_password=\"${DB_PASSWORD}\";|g; \
 		s|\$PostgreSql_hostname=\"DB_HOSTNAME\";|\$PostgreSql_hostname=\"${DB_HOSTNAME}\";|g; \
@@ -43,6 +43,7 @@ if [ "$DB_TYPE" = "postgresql" ]; then
 		/usr/share/webapps/librespeed/results/telemetry_settings.php
 elif [ "$DB_TYPE" = "mysql" ]; then
 	sed -i "\
+		s|\$db_type=\"mysql\";|\$db_type=\"${DB_TYPE}\";|g \
 		s|\$MySql_username=\"USERNAME\";|\$MySql_username=\"${DB_USERNAME}\";|g; \
 		s|\$MySql_password=\"PASSWORD\";|\$MySql_password=\"${DB_PASSWORD}\";|g; \
 		s|\$MySql_hostname=\"DB_HOSTNAME\";|\$MySql_hostname=\"${DB_HOSTNAME}\";|g; \
