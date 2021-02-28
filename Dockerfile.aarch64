@@ -11,6 +11,7 @@ RUN \
  echo "**** install packages ****" && \
  apk add --no-cache \
 	curl \
+	php7-ctype \
 	php7-gd \
 	php7-mysqli \
 	php7-pdo_pgsql \
