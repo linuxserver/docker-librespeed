@@ -78,12 +78,13 @@ services:
       - PGID=1000
       - TZ=Europe/London
       - PASSWORD=PASSWORD
-      - CUSTOM_RESULTS=true #optional
+      - CUSTOM_RESULTS=false #optional
       - DB_TYPE=sqlite #optional
       - DB_NAME=DB_NAME #optional
       - DB_HOSTNAME=DB_HOSTNAME #optional
       - DB_USERNAME=DB_USERNAME #optional
       - DB_PASSWORD=DB_PASSWORD #optional
+      - DB_PORT=DB_PORT #optional
     volumes:
       - /path/to/appdata/config:/config
     ports:
@@ -100,12 +101,13 @@ docker run -d \
   -e PGID=1000 \
   -e TZ=Europe/London \
   -e PASSWORD=PASSWORD \
-  -e CUSTOM_RESULTS=true `#optional` \
+  -e CUSTOM_RESULTS=false `#optional` \
   -e DB_TYPE=sqlite `#optional` \
   -e DB_NAME=DB_NAME `#optional` \
   -e DB_HOSTNAME=DB_HOSTNAME `#optional` \
   -e DB_USERNAME=DB_USERNAME `#optional` \
   -e DB_PASSWORD=DB_PASSWORD `#optional` \
+  -e DB_PORT=DB_PORT `#optional` \
   -p 80:80 \
   -v /path/to/appdata/config:/config \
   --restart unless-stopped \
@@ -124,12 +126,13 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e PGID=1000` | for GroupID - see below for explanation |
 | `-e TZ=Europe/London` | Specify a timezone to use EG Europe/London |
 | `-e PASSWORD=PASSWORD` | Set the password for the results database. |
-| `-e CUSTOM_RESULTS=true` | (optional) enables custom results page in `/config/www/results/index.php`. |
+| `-e CUSTOM_RESULTS=false` | (optional) set to `true` to enable custom results page in `/config/www/results/index.php`. |
 | `-e DB_TYPE=sqlite` | Defaults to `sqlite`, can also be set to `mysql` or `postgresql`. |
 | `-e DB_NAME=DB_NAME` | Database name. Required for mysql and pgsql. |
 | `-e DB_HOSTNAME=DB_HOSTNAME` | Database address. Required for mysql and pgsql. |
 | `-e DB_USERNAME=DB_USERNAME` | Database username. Required for mysql and pgsql. |
 | `-e DB_PASSWORD=DB_PASSWORD` | Database password. Required for mysql and pgsql. |
+| `-e DB_PORT=DB_PORT` | Database port. Required for mysql. |
 | `-v /config` | Contains all relevant configuration files. |
 
 ## Environment variables from files (Docker secrets)
@@ -248,6 +251,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **01.03.21:** - Fix up database settings. Make sure `index.html` is recreated.
 * **28.02.21:** - Added php7-ctype.
 * **23.01.21:** - Rebasing to alpine 3.13.
 * **01.06.20:** - Rebasing to alpine 3.12.

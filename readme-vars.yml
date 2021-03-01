@@ -37,12 +37,13 @@ param_env_vars:
 # optional container parameters
 opt_param_usage_include_env: true
 opt_param_env_vars:
-  - { env_var: "CUSTOM_RESULTS", env_value: "true", desc: "(optional) enables custom results page in `/config/www/results/index.php`."}
+  - { env_var: "CUSTOM_RESULTS", env_value: "false", desc: "(optional) set to `true` to enable custom results page in `/config/www/results/index.php`."}
   - { env_var: "DB_TYPE", env_value: "sqlite", desc: "Defaults to `sqlite`, can also be set to `mysql` or `postgresql`."}
   - { env_var: "DB_NAME", env_value: "DB_NAME", desc: "Database name. Required for mysql and pgsql."}
   - { env_var: "DB_HOSTNAME", env_value: "DB_HOSTNAME", desc: "Database address. Required for mysql and pgsql."}
   - { env_var: "DB_USERNAME", env_value: "DB_USERNAME", desc: "Database username. Required for mysql and pgsql."}
   - { env_var: "DB_PASSWORD", env_value: "DB_PASSWORD", desc: "Database password. Required for mysql and pgsql."}
+  - { env_var: "DB_PORT", env_value: "DB_PORT", desc: "Database port. Required for mysql."}
 
 optional_block_1: false
 optional_block_1_items: ""
@@ -62,6 +63,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "01.03.21:", desc: "Fix up database settings. Make sure `index.html` is recreated." }
   - { date: "28.02.21:", desc: "Added php7-ctype." }
   - { date: "23.01.21:", desc: "Rebasing to alpine 3.13." }
   - { date: "01.06.20:", desc: "Rebasing to alpine 3.12." }
