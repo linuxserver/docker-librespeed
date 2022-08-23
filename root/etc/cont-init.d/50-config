@@ -2,63 +2,65 @@
 
 # make our folders
 mkdir -p \
-	/config/www \
-	/config/www/img
+    /config/www \
+    /config/www/img
 
 # create symlink to index.html
-[[ ! -L /usr/share/webapps/librespeed/index.html ]] && \
-	ln -s /config/www/index.html /usr/share/webapps/librespeed/index.html
-[[ ! -f /config/www/index.html ]] && \
-	cp /defaults/index.html /config/www/index.html
+if [[ ! -L /app/www/public/index.html ]]; then
+    ln -s /config/www/index.html /app/www/public/index.html
+fi
 
 # update templates
-cp /usr/share/webapps/librespeed/example*.html /config/www/
+cp /app/www/public/example*.html /config/www/
 
 # use custom js files if exist
-[[ -f /config/www/speedtest.js ]] && \
-	cp /config/www/speedtest.js /usr/share/webapps/librespeed/speedtest.js
-[[ -f /config/www/speedtest_worker.js ]] && \
-	cp /config/www/speedtest_worker.js /usr/share/webapps/librespeed/speedtest_worker.js
+if [[ -f /config/www/speedtest.js ]]; then
+    cp /config/www/speedtest.js /app/www/public/speedtest.js
+fi
+if [[ -f /config/www/speedtest_worker.js ]]; then
+    cp /config/www/speedtest_worker.js /app/www/public/speedtest_worker.js
+fi
 
 # enables custom results page
 if [ "$CUSTOM_RESULTS" == "true" ]; then
-	echo "custom results"
-	[[ ! -e "/config/www/results/index.php" ]] && \
-		mkdir -p /config/www/results/ && \
-		mv /usr/share/webapps/librespeed/results/index.php /config/www/results/index.php
-	ln -sf /config/www/results/index.php /usr/share/webapps/librespeed/results/index.php
+    echo "custom results"
+    if [[ ! -e "/config/www/results/index.php" ]]; then
+        mkdir -p /config/www/results/
+        mv /app/www/public/results/index.php /config/www/results/index.php
+    fi
+    ln -sf /config/www/results/index.php /app/www/public/results/index.php
 fi
 
 # configure app settings
 sed -i "\
-	s|\$Sqlite_db_file.*|\$Sqlite_db_file = \'/config/speedtest_telemetry.sql\';|g; \
-	s|\$enable_id_obfuscation.*|\$enable_id_obfuscation = true;|g;
-	s|\$stats_password.*|\$stats_password = \'${PASSWORD}\';|g" \
-	/usr/share/webapps/librespeed/results/telemetry_settings.php
+    s|\$Sqlite_db_file.*|\$Sqlite_db_file = \'/config/speedtest_telemetry.sql\';|g; \
+    s|\$enable_id_obfuscation.*|\$enable_id_obfuscation = true;|g;
+    s|\$stats_password.*|\$stats_password = \'${PASSWORD}\';|g" \
+    /app/www/public/results/telemetry_settings.php
 if [ "$DB_TYPE" = "postgresql" ]; then
-	sed -i "\
-		s|\$db_type.*|\$db_type = \'${DB_TYPE}\';|g; \
-		s|\$PostgreSql_username.*|\$PostgreSql_username = \'${DB_USERNAME}\';|g; \
-		s|\$PostgreSql_password.*|\$PostgreSql_password = \'${DB_PASSWORD}\';|g; \
-		s|\$PostgreSql_hostname.*|\$PostgreSql_hostname = \'${DB_HOSTNAME}\';|g; \
-		s|\$PostgreSql_databasename.*|\$PostgreSql_databasename = \'${DB_NAME}\';|g" \
-		/usr/share/webapps/librespeed/results/telemetry_settings.php
+    sed -i "\
+        s|\$db_type.*|\$db_type = \'${DB_TYPE}\';|g; \
+        s|\$PostgreSql_username.*|\$PostgreSql_username = \'${DB_USERNAME}\';|g; \
+        s|\$PostgreSql_password.*|\$PostgreSql_password = \'${DB_PASSWORD}\';|g; \
+        s|\$PostgreSql_hostname.*|\$PostgreSql_hostname = \'${DB_HOSTNAME}\';|g; \
+        s|\$PostgreSql_databasename.*|\$PostgreSql_databasename = \'${DB_NAME}\';|g" \
+        /app/www/public/results/telemetry_settings.php
 elif [ "$DB_TYPE" = "mysql" ]; then
-	sed -i "\
-		s|\$MySql_username.*|\$MySql_username = \'${DB_USERNAME}\';|g; \
-		s|\$MySql_password.*|\$MySql_password = \'${DB_PASSWORD}\';|g; \
-		s|\$MySql_hostname.*|\$MySql_hostname = \'${DB_HOSTNAME}\';|g; \
-		s|\$MySql_databasename.*|\$MySql_databasename = \'${DB_NAME}\';|g; \
-		s|\$MySql_port.*|\$MySql_port = \'${DB_PORT:-3306}\';|g" \
-		/usr/share/webapps/librespeed/results/telemetry_settings.php
+    sed -i "\
+        s|\$MySql_username.*|\$MySql_username = \'${DB_USERNAME}\';|g; \
+        s|\$MySql_password.*|\$MySql_password = \'${DB_PASSWORD}\';|g; \
+        s|\$MySql_hostname.*|\$MySql_hostname = \'${DB_HOSTNAME}\';|g; \
+        s|\$MySql_databasename.*|\$MySql_databasename = \'${DB_NAME}\';|g; \
+        s|\$MySql_port.*|\$MySql_port = \'${DB_PORT:-3306}\';|g" \
+        /app/www/public/results/telemetry_settings.php
 else
-	sed -i \
-		"s|\$db_type.*|\$db_type = \'sqlite\';|g" \
-		/usr/share/webapps/librespeed/results/telemetry_settings.php
+    sed -i \
+        "s|\$db_type.*|\$db_type = \'sqlite\';|g" \
+        /app/www/public/results/telemetry_settings.php
 fi
 
 # permissions
 echo "Setting permissions"
 chown -R abc:abc \
-	/usr/share/webapps/librespeed \
-	/config
+    /app/www/public \
+    /config
