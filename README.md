@@ -41,6 +41,7 @@ Find us at:
 [![LSIO CI](https://img.shields.io/badge/dynamic/yaml?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=CI&query=CI&url=https%3A%2F%2Fci-tests.linuxserver.io%2Flinuxserver%2Flibrespeed%2Flatest%2Fci-status.yml)](https://ci-tests.linuxserver.io/linuxserver/librespeed/latest/index.html)
 
 [Librespeed](https://github.com/librespeed/speedtest) is a very lightweight Speedtest implemented in Javascript, using XMLHttpRequest and Web Workers.
+
 No Flash, No Java, No Websocket, No Bullshit.
 
 [![librespeed](https://raw.githubusercontent.com/librespeed/speedtest/master/.logo/logo3.png)](https://github.com/librespeed/speedtest)
@@ -254,6 +255,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **20.01.23:** - Rebase to alpine 3.17 with php8.1.
 * **20.08.22:** - Rebasing to alpine 3.15 with php8. Restructure nginx configs ([see changes announcement](https://info.linuxserver.io/issues/2022-08-20-nginx-base)).
 * **01.03.21:** - Fix up database settings. Make sure `index.html` is recreated.
 * **28.02.21:** - Added php7-ctype.

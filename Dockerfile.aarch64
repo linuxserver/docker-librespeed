@@ -1,4 +1,6 @@
-FROM ghcr.io/linuxserver/baseimage-alpine-nginx:arm64v8-3.15
+# syntax=docker/dockerfile:1
+
+FROM ghcr.io/linuxserver/baseimage-alpine-nginx:arm64v8-3.17
 
 # set version label
 ARG BUILD_DATE
@@ -10,12 +12,11 @@ LABEL maintainer="aptalca"
 RUN \
   echo "**** install packages ****" && \
   apk add --no-cache \
-    curl \
-    php8-ctype \
-    php8-gd \
-    php8-mysqli \
-    php8-pdo_pgsql \
-    php8-pdo_sqlite && \
+    php81-ctype \
+    php81-gd \
+    php81-mysqli \
+    php81-pdo_pgsql \
+    php81-pdo_sqlite && \
   echo "**** install librespeed ****" && \
   if [ -z ${LIBRESPEED_RELEASE+x} ]; then \
     LIBRESPEED_RELEASE=$(curl -sX GET "https://api.github.com/repos/librespeed/speedtest/releases/latest" \

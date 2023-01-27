@@ -3,7 +3,6 @@
 
 # make our folders
 mkdir -p \
-    /config/www \
     /config/www/img
 
 # create symlink to index.html
@@ -61,7 +60,5 @@ else
 fi
 
 # permissions
-echo "Setting permissions"
-chown -R abc:abc \
-    /app/www/public \
+lsiown -R abc:abc \
     /config
