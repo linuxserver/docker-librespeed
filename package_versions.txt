@@ -2,7 +2,7 @@ NAME                    VERSION           TYPE
 alpine-baselayout       3.4.0-r0          apk     
 alpine-baselayout-data  3.4.0-r0          apk     
 alpine-keys             2.4-r1            apk     
-alpine-release          3.17.2-r0         apk     
+alpine-release          3.17.3-r0         apk     
 aom-libs                3.5.0-r0          apk     
 apache2-utils           2.4.56-r0         apk     
 apk-tools               2.12.10-r1        apk     
@@ -27,7 +27,7 @@ libavif                 0.11.1-r0         apk
 libbsd                  0.11.7-r0         apk     
 libbz2                  1.0.8-r4          apk     
 libc-utils              0.7.2-r3          apk     
-libcrypto3              3.0.8-r1          apk     
+libcrypto3              3.0.8-r3          apk     
 libcurl                 7.88.1-r1         apk     
 libdav1d                1.0.0-r2          apk     
 libedit                 20221030.3.1-r0   apk     
@@ -40,7 +40,7 @@ libpng                  1.6.38-r0         apk
 libpq                   15.2-r0           apk     
 libproc                 3.3.17-r2         apk     
 libsm                   1.2.3-r1          apk     
-libssl3                 3.0.8-r1          apk     
+libssl3                 3.0.8-r3          apk     
 libuuid                 2.38.1-r1         apk     
 libwebp                 1.2.4-r1          apk     
 libx11                  1.8.4-r0          apk     
@@ -92,7 +92,7 @@ shadow                  4.13-r0           apk
 skalibs                 2.12.0.1-r0       apk     
 sqlite-libs             3.40.1-r0         apk     
 ssl_client              1.35.0-r29        apk     
-tzdata                  2023b-r1          apk     
+tzdata                  2023c-r0          apk     
 utmps-libs              0.1.2.0-r1        apk     
 xz                      5.2.9-r0          apk     
 xz-libs                 5.2.9-r0          apk     
