@@ -21,6 +21,12 @@ if [[ -f /config/www/speedtest_worker.js ]]; then
     cp /config/www/speedtest_worker.js /app/www/public/speedtest_worker.js
 fi
 
+# sets apikey for ipinfo.io, if it exists
+if [ -n "$IPINFO_APIKEY" ]; then
+    sed -i "s/\$IPINFO_APIKEY = .*/\$IPINFO_APIKEY = '${IPINFO_APIKEY:-}';/g" \
+    /app/www/public/backend/getIP_ipInfo_apikey.php
+fi
+
 # enables custom results page
 if [ "$CUSTOM_RESULTS" == "true" ]; then
     echo "custom results"
