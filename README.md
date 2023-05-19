@@ -97,6 +97,7 @@ services:
       - DB_USERNAME=DB_USERNAME #optional
       - DB_PASSWORD=DB_PASSWORD #optional
       - DB_PORT=DB_PORT #optional
+      - IPINFO_APIKEY=ACCESS_TOKEN #optional
     volumes:
       - /path/to/appdata/config:/config
     ports:
@@ -120,6 +121,7 @@ docker run -d \
   -e DB_USERNAME=DB_USERNAME `#optional` \
   -e DB_PASSWORD=DB_PASSWORD `#optional` \
   -e DB_PORT=DB_PORT `#optional` \
+  -e IPINFO_APIKEY=ACCESS_TOKEN `#optional` \
   -p 80:80 \
   -v /path/to/appdata/config:/config \
   --restart unless-stopped \
@@ -145,6 +147,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e DB_USERNAME=DB_USERNAME` | Database username. Required for mysql and pgsql. |
 | `-e DB_PASSWORD=DB_PASSWORD` | Database password. Required for mysql and pgsql. |
 | `-e DB_PORT=DB_PORT` | Database port. Required for mysql. |
+| `-e IPINFO_APIKEY=ACCESS_TOKEN` | Access token from ipinfo.io. Required for detailed IP information. |
 | `-v /config` | Contains all relevant configuration files. |
 
 ## Environment variables from files (Docker secrets)
@@ -256,6 +259,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **14.05.23:** - Added support for ipinfo.io
 * **20.01.23:** - Rebase to alpine 3.17 with php8.1.
 * **20.08.22:** - Rebasing to alpine 3.15 with php8. Restructure nginx configs ([see changes announcement](https://info.linuxserver.io/issues/2022-08-20-nginx-base)).
 * **01.03.21:** - Fix up database settings. Make sure `index.html` is recreated.
