@@ -45,6 +45,7 @@ opt_param_env_vars:
   - { env_var: "DB_USERNAME", env_value: "DB_USERNAME", desc: "Database username. Required for mysql and pgsql."}
   - { env_var: "DB_PASSWORD", env_value: "DB_PASSWORD", desc: "Database password. Required for mysql and pgsql."}
   - { env_var: "DB_PORT", env_value: "DB_PORT", desc: "Database port. Required for mysql."}
+  - { env_var: "IPINFO_APIKEY", env_value: "ACCESS_TOKEN", desc: "Access token from ipinfo.io. Required for detailed IP information."}
 
 optional_block_1: false
 optional_block_1_items: ""
@@ -64,6 +65,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "14.05.23:", desc: "Added support for ipinfo.io" }
   - { date: "20.01.23:", desc: "Rebase to alpine 3.17 with php8.1." }
   - { date: "20.08.22:", desc: "Rebasing to alpine 3.15 with php8. Restructure nginx configs ([see changes announcement](https://info.linuxserver.io/issues/2022-08-20-nginx-base))." }
   - { date: "01.03.21:", desc: "Fix up database settings. Make sure `index.html` is recreated." }
