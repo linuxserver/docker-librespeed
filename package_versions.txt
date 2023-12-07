@@ -76,10 +76,10 @@ php82-fpm               8.2.13-r0         apk
 php82-gd                8.2.13-r0         apk   
 php82-iconv             8.2.13-r0         apk   
 php82-mbstring          8.2.13-r0         apk   
-php82-mysqli            8.2.13-r0         apk   
 php82-mysqlnd           8.2.13-r0         apk   
 php82-openssl           8.2.13-r0         apk   
 php82-pdo               8.2.13-r0         apk   
+php82-pdo_mysql         8.2.13-r0         apk   
 php82-pdo_pgsql         8.2.13-r0         apk   
 php82-pdo_sqlite        8.2.13-r0         apk   
 php82-phar              8.2.13-r0         apk   
