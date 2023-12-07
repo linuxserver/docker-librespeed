@@ -13,7 +13,7 @@ RUN \
   echo "**** install packages ****" && \
   apk add --no-cache \
     php82-gd \
-    php82-mysqli \
+    php82-pdo_mysql \
     php82-pdo_pgsql \
     php82-pdo_sqlite && \
   echo "**** install librespeed ****" && \

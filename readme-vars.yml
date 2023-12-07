@@ -64,6 +64,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "06.12.23:", desc: "Replace php mysqli with php pdo_pgsql." }
   - { date: "25.05.23:", desc: "Rebase to Alpine 3.18, deprecate armhf." }
   - { date: "14.05.23:", desc: "Added support for ipinfo.io" }
   - { date: "20.01.23:", desc: "Rebase to alpine 3.17 with php8.1." }
