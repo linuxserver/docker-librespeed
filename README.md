@@ -324,6 +324,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **06.12.23:** - Replace php mysqli with php pdo_pgsql.
 * **25.05.23:** - Rebase to Alpine 3.18, deprecate armhf.
 * **14.05.23:** - Added support for ipinfo.io
 * **20.01.23:** - Rebase to alpine 3.17 with php8.1.
