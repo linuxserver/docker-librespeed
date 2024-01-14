@@ -27,7 +27,7 @@ libavif                 0.11.1-r2         apk
 libbsd                  0.11.7-r1         apk     
 libbz2                  1.0.8-r5          apk     
 libc-utils              0.7.2-r5          apk     
-libcrypto3              3.1.4-r1          apk     
+libcrypto3              3.1.4-r3          apk     
 libcurl                 8.5.0-r0          apk     
 libdav1d                1.2.1-r0          apk     
 libedit                 20221030.3.1-r1   apk     
@@ -42,7 +42,7 @@ libpng                  1.6.39-r3         apk
 libpq                   15.5-r0           apk     
 libproc2                4.0.4-r0          apk     
 libsm                   1.2.4-r1          apk     
-libssl3                 3.1.4-r1          apk     
+libssl3                 3.1.4-r3          apk     
 libunistring            1.1-r1            apk     
 libuuid                 2.38.1-r8         apk     
 libwebp                 1.3.2-r0          apk     
@@ -65,7 +65,7 @@ netcat-openbsd          1.219-r1          apk
 nghttp2-libs            1.57.0-r0         apk     
 nginx                   1.24.0-r7         apk     
 oniguruma               6.9.8-r1          apk     
-openssl                 3.1.4-r1          apk     
+openssl                 3.1.4-r3          apk     
 pcre                    8.45-r3           apk     
 pcre2                   10.42-r1          apk     
 php82                   8.2.13-r0         apk     
