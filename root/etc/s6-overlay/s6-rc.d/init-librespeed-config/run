@@ -7,11 +7,11 @@ mkdir -p \
 
 # create symlink to index.html
 if [[ ! -L /app/www/public/index.html ]]; then
-    ln -s /config/www/index.html /app/www/public/index.html
+    ln -sf /config/www/index.html /app/www/public/index.html
 fi
 
 # update templates
-cp /app/www/public/example*.html /config/www/
+cp /app/www/public/examples/example*.html /config/www/
 
 # use custom js files if exist
 if [[ -f /config/www/speedtest.js ]]; then
