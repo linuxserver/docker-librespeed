@@ -15,11 +15,6 @@ available_architectures:
   - { arch: "{{ arch_x86_64 }}", tag: "amd64-latest"}
   - { arch: "{{ arch_arm64 }}", tag: "arm64v8-latest"}
 
-# development version
-development_versions: false
-development_versions_items:
-  - { tag: "latest", desc: "Stable releases" }
-
 # container parameters
 common_param_env_vars_enabled: true
 param_container_name: "{{ project_name }}"
@@ -31,7 +26,6 @@ param_ports:
   - { external_port: "80", internal_port: "80", port_desc: "web gui" }
 param_usage_include_env: true
 param_env_vars:
-  - { env_var: "TZ", env_value: "Europe/London", desc: "Specify a timezone to use EG Europe/London"}
   - { env_var: "PASSWORD", env_value: "PASSWORD", desc: "Set the password for the results database."}
 
 # optional container parameters
@@ -46,24 +40,22 @@ opt_param_env_vars:
   - { env_var: "DB_PORT", env_value: "DB_PORT", desc: "Database port. Required for mysql."}
   - { env_var: "IPINFO_APIKEY", env_value: "ACCESS_TOKEN", desc: "Access token from ipinfo.io. Required for detailed IP information."}
 
-optional_block_1: false
-optional_block_1_items: ""
-
 # application setup block
 app_setup_block_enabled: true
 app_setup_block: |
-  Access the speedtest webui at `http://SERVERIP`. The results database can be accessed at `http://SERVERIP/results/stats.php` with the password set.  
-  The default template used is based on `example-singleServer-full.html`. However, all templates are provided for reference at `/config/www/`. Feel free to customize `/config/www/index.html` as you like. Delete the file and restart to go back to the image default.  
-  
-  You can optionally place customized `speedtest.js` and `speedtest_worker.js` files under `/config/www` and they will supersede the defaults after a container start. Keep in mind that once you do so, they will no longer be updated. You can delete them and recreate the container to go back to the image defaults.  
-  
-  If you are setting up a mysql or postgresql database, you first need to import the tables into your database as described at the following link  
+  Access the speedtest webui at `http://SERVERIP`. The results database can be accessed at `http://SERVERIP/results/stats.php` with the password set.
+  The default template used is based on `example-singleServer-full.html`. However, all templates are provided for reference at `/config/www/`. Feel free to customize `/config/www/index.html` as you like. Delete the file and restart to go back to the image default.
+
+  You can optionally place customized `speedtest.js` and `speedtest_worker.js` files under `/config/www` and they will supersede the defaults after a container start. Keep in mind that once you do so, they will no longer be updated. You can delete them and recreate the container to go back to the image defaults.
+
+  If you are setting up a mysql or postgresql database, you first need to import the tables into your database as described at the following link
   https://github.com/librespeed/speedtest/blob/master/doc.md#creating-the-database
 
   To enable a custom results page set the environment variable `CUSTOM_RESULTS=true` and start (or restart) the container at least once for `/config/www/results/index.php` to be created and modify this file to your liking.
 
 # changelog
 changelogs:
+  - { date: "27.06.24:", desc: "Rebase to Alpine 3.20. Existing users should update their nginx confs to avoid http2 deprecation warnings."}
   - { date: "23.12.23:", desc: "Rebase to Alpine 3.19 with php 8.3."}
   - { date: "06.12.23:", desc: "Replace php mysqli with php pdo_pgsql." }
   - { date: "25.05.23:", desc: "Rebase to Alpine 3.18, deprecate armhf." }

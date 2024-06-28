@@ -61,12 +61,12 @@ The architectures supported by this image are:
 
 ## Application Setup
 
-Access the speedtest webui at `http://SERVERIP`. The results database can be accessed at `http://SERVERIP/results/stats.php` with the password set.  
-The default template used is based on `example-singleServer-full.html`. However, all templates are provided for reference at `/config/www/`. Feel free to customize `/config/www/index.html` as you like. Delete the file and restart to go back to the image default.  
+Access the speedtest webui at `http://SERVERIP`. The results database can be accessed at `http://SERVERIP/results/stats.php` with the password set.
+The default template used is based on `example-singleServer-full.html`. However, all templates are provided for reference at `/config/www/`. Feel free to customize `/config/www/index.html` as you like. Delete the file and restart to go back to the image default.
 
-You can optionally place customized `speedtest.js` and `speedtest_worker.js` files under `/config/www` and they will supersede the defaults after a container start. Keep in mind that once you do so, they will no longer be updated. You can delete them and recreate the container to go back to the image defaults.  
+You can optionally place customized `speedtest.js` and `speedtest_worker.js` files under `/config/www` and they will supersede the defaults after a container start. Keep in mind that once you do so, they will no longer be updated. You can delete them and recreate the container to go back to the image defaults.
 
-If you are setting up a mysql or postgresql database, you first need to import the tables into your database as described at the following link  
+If you are setting up a mysql or postgresql database, you first need to import the tables into your database as described at the following link
 https://github.com/librespeed/speedtest/blob/master/doc.md#creating-the-database
 
 To enable a custom results page set the environment variable `CUSTOM_RESULTS=true` and start (or restart) the container at least once for `/config/www/results/index.php` to be created and modify this file to your liking.
@@ -308,6 +308,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **27.06.24:** - Rebase to Alpine 3.20. Existing users should update their nginx confs to avoid http2 deprecation warnings.
 * **23.12.23:** - Rebase to Alpine 3.19 with php 8.3.
 * **06.12.23:** - Replace php mysqli with php pdo_pgsql.
 * **25.05.23:** - Rebase to Alpine 3.18, deprecate armhf.
