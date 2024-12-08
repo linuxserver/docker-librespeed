@@ -9,37 +9,33 @@ project_blurb: |
 
   No Flash, No Java, No Websocket, No Bullshit.
 project_lsio_github_repo_url: "https://github.com/linuxserver/docker-{{ project_name }}"
-
 # supported architectures
 available_architectures:
-  - { arch: "{{ arch_x86_64 }}", tag: "amd64-latest"}
-  - { arch: "{{ arch_arm64 }}", tag: "arm64v8-latest"}
-
+  - {arch: "{{ arch_x86_64 }}", tag: "amd64-latest"}
+  - {arch: "{{ arch_arm64 }}", tag: "arm64v8-latest"}
 # container parameters
 common_param_env_vars_enabled: true
 param_container_name: "{{ project_name }}"
 param_usage_include_vols: true
 param_volumes:
-  - { vol_path: "/config", vol_host_path: "/path/to/{{ project_name }}/config", desc: "Persistent config files" }
+  - {vol_path: "/config", vol_host_path: "/path/to/{{ project_name }}/config", desc: "Persistent config files"}
 param_usage_include_ports: true
 param_ports:
-  - { external_port: "80", internal_port: "80", port_desc: "web gui" }
+  - {external_port: "80", internal_port: "80", port_desc: "web gui"}
 param_usage_include_env: true
 param_env_vars:
-  - { env_var: "PASSWORD", env_value: "PASSWORD", desc: "Set the password for the results database."}
-
+  - {env_var: "PASSWORD", env_value: "PASSWORD", desc: "Set the password for the results database."}
 # optional container parameters
 opt_param_usage_include_env: true
 opt_param_env_vars:
-  - { env_var: "CUSTOM_RESULTS", env_value: "false", desc: "(optional) set to `true` to enable custom results page in `/config/www/results/index.php`."}
-  - { env_var: "DB_TYPE", env_value: "sqlite", desc: "Defaults to `sqlite`, can also be set to `mysql` or `postgresql`."}
-  - { env_var: "DB_NAME", env_value: "DB_NAME", desc: "Database name. Required for mysql and pgsql."}
-  - { env_var: "DB_HOSTNAME", env_value: "DB_HOSTNAME", desc: "Database address. Required for mysql and pgsql."}
-  - { env_var: "DB_USERNAME", env_value: "DB_USERNAME", desc: "Database username. Required for mysql and pgsql."}
-  - { env_var: "DB_PASSWORD", env_value: "DB_PASSWORD", desc: "Database password. Required for mysql and pgsql."}
-  - { env_var: "DB_PORT", env_value: "DB_PORT", desc: "Database port. Required for mysql."}
-  - { env_var: "IPINFO_APIKEY", env_value: "ACCESS_TOKEN", desc: "Access token from ipinfo.io. Required for detailed IP information."}
-
+  - {env_var: "CUSTOM_RESULTS", env_value: "false", desc: "(optional) set to `true` to enable custom results page in `/config/www/results/index.php`."}
+  - {env_var: "DB_TYPE", env_value: "sqlite", desc: "Defaults to `sqlite`, can also be set to `mysql` or `postgresql`."}
+  - {env_var: "DB_NAME", env_value: "DB_NAME", desc: "Database name. Required for mysql and pgsql."}
+  - {env_var: "DB_HOSTNAME", env_value: "DB_HOSTNAME", desc: "Database address. Required for mysql and pgsql."}
+  - {env_var: "DB_USERNAME", env_value: "DB_USERNAME", desc: "Database username. Required for mysql and pgsql."}
+  - {env_var: "DB_PASSWORD", env_value: "DB_PASSWORD", desc: "Database password. Required for mysql and pgsql."}
+  - {env_var: "DB_PORT", env_value: "DB_PORT", desc: "Database port. Required for mysql."}
+  - {env_var: "IPINFO_APIKEY", env_value: "ACCESS_TOKEN", desc: "Access token from ipinfo.io. Required for detailed IP information."}
 # application setup block
 app_setup_block_enabled: true
 app_setup_block: |
@@ -52,19 +48,73 @@ app_setup_block: |
   https://github.com/librespeed/speedtest/blob/master/doc.md#creating-the-database
 
   To enable a custom results page set the environment variable `CUSTOM_RESULTS=true` and start (or restart) the container at least once for `/config/www/results/index.php` to be created and modify this file to your liking.
-
+# init diagram
+init_diagram: |
+  "librespeed:latest": {
+    docker-mods
+    base {
+      fix-attr +\nlegacy cont-init
+    }
+    docker-mods -> base
+    legacy-services
+    custom services
+    init-services -> legacy-services
+    init-services -> custom services
+    custom services -> legacy-services
+    legacy-services -> ci-service-check
+    init-migrations -> init-adduser
+    init-nginx-end -> init-config
+    init-os-end -> init-config
+    init-config -> init-config-end
+    init-librespeed-config -> init-config-end
+    init-os-end -> init-crontab-config
+    init-mods-end -> init-custom-files
+    base -> init-envfile
+    init-os-end -> init-folders
+    init-php -> init-keygen
+    init-nginx-end -> init-librespeed-config
+    base -> init-migrations
+    base -> init-mods
+    init-config-end -> init-mods
+    init-version-checks -> init-mods
+    init-mods -> init-mods-end
+    init-mods-package-install -> init-mods-end
+    init-mods -> init-mods-package-install
+    init-samples -> init-nginx
+    init-permissions -> init-nginx-end
+    base -> init-os-end
+    init-adduser -> init-os-end
+    init-envfile -> init-os-end
+    init-migrations -> init-os-end
+    init-keygen -> init-permissions
+    init-nginx -> init-php
+    init-folders -> init-samples
+    init-custom-files -> init-services
+    init-mods-end -> init-services
+    init-config-end -> init-version-checks
+    init-services -> svc-cron
+    svc-cron -> legacy-services
+    init-services -> svc-nginx
+    svc-nginx -> legacy-services
+    init-services -> svc-php-fpm
+    svc-php-fpm -> legacy-services
+  }
+  Base Images: {
+    "baseimage-alpine-nginx:3.20" <- "baseimage-alpine:3.20"
+  }
+  "librespeed:latest" <- Base Images
 # changelog
 changelogs:
-  - { date: "27.06.24:", desc: "Rebase to Alpine 3.20. Existing users should update their nginx confs to avoid http2 deprecation warnings."}
-  - { date: "23.12.23:", desc: "Rebase to Alpine 3.19 with php 8.3."}
-  - { date: "06.12.23:", desc: "Replace php mysqli with php pdo_pgsql." }
-  - { date: "25.05.23:", desc: "Rebase to Alpine 3.18, deprecate armhf." }
-  - { date: "14.05.23:", desc: "Added support for ipinfo.io" }
-  - { date: "20.01.23:", desc: "Rebase to alpine 3.17 with php8.1." }
-  - { date: "20.08.22:", desc: "Rebasing to alpine 3.15 with php8. Restructure nginx configs ([see changes announcement](https://info.linuxserver.io/issues/2022-08-20-nginx-base))." }
-  - { date: "01.03.21:", desc: "Fix up database settings. Make sure `index.html` is recreated." }
-  - { date: "28.02.21:", desc: "Added php7-ctype." }
-  - { date: "23.01.21:", desc: "Rebasing to alpine 3.13." }
-  - { date: "01.06.20:", desc: "Rebasing to alpine 3.12." }
-  - { date: "29.04.20:", desc: "Add donation links for LibreSpeed to Github sponsor button and container log." }
-  - { date: "09.01.20:", desc: "Initial Release." }
+  - {date: "27.06.24:", desc: "Rebase to Alpine 3.20. Existing users should update their nginx confs to avoid http2 deprecation warnings."}
+  - {date: "23.12.23:", desc: "Rebase to Alpine 3.19 with php 8.3."}
+  - {date: "06.12.23:", desc: "Replace php mysqli with php pdo_pgsql."}
+  - {date: "25.05.23:", desc: "Rebase to Alpine 3.18, deprecate armhf."}
+  - {date: "14.05.23:", desc: "Added support for ipinfo.io"}
+  - {date: "20.01.23:", desc: "Rebase to alpine 3.17 with php8.1."}
+  - {date: "20.08.22:", desc: "Rebasing to alpine 3.15 with php8. Restructure nginx configs ([see changes announcement](https://info.linuxserver.io/issues/2022-08-20-nginx-base))."}
+  - {date: "01.03.21:", desc: "Fix up database settings. Make sure `index.html` is recreated."}
+  - {date: "28.02.21:", desc: "Added php7-ctype."}
+  - {date: "23.01.21:", desc: "Rebasing to alpine 3.13."}
+  - {date: "01.06.20:", desc: "Rebasing to alpine 3.12."}
+  - {date: "29.04.20:", desc: "Add donation links for LibreSpeed to Github sponsor button and container log."}
+  - {date: "09.01.20:", desc: "Initial Release."}
