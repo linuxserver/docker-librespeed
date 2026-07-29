@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM ghcr.io/linuxserver/baseimage-alpine-nginx:arm64v8-3.22
+FROM ghcr.io/linuxserver/baseimage-alpine-nginx:arm64v8-3.24
 
 # set version label
 ARG BUILD_DATE
@@ -12,10 +12,10 @@ LABEL maintainer="aptalca"
 RUN \
   echo "**** install packages ****" && \
   apk add --no-cache \
-    php84-gd \
-    php84-pdo_mysql \
-    php84-pdo_pgsql \
-    php84-pdo_sqlite && \
+    php85-gd \
+    php85-pdo_mysql \
+    php85-pdo_pgsql \
+    php85-pdo_sqlite && \
   echo "**** install librespeed ****" && \
   if [ -z ${LIBRESPEED_RELEASE+x} ]; then \
     LIBRESPEED_RELEASE=$(curl -sX GET "https://api.github.com/repos/librespeed/speedtest/releases/latest" \
@@ -29,6 +29,14 @@ RUN \
   tar xf \
     /tmp/librespeed.tar.gz -C \
     /app/www/public --strip-components=1 && \
+  mkdir -p /defaults/www && \
+  cp /app/www/public/index.html /defaults/www/ && \
+  mv /app/www/public/index.html /app/www/public/index.html.bak && \
+  mv /app/www/public/config.json /app/www/public/config.json.bak && \
+  mv /app/www/public/frontend/settings.json /app/www/public/frontend/settings.json.bak && \
+  mv /app/www/public/frontend/server-list.json /app/www/public/frontend/server-list.json.bak && \
+  rm -rf /app/www/public/frontend/index.html && \
+  cp -a /app/www/public/frontend/* /app/www/public/ && \
   printf "Linuxserver.io version: ${VERSION}\nBuild-date: ${BUILD_DATE}" > /build_version && \
   echo "**** cleanup ****" && \
   rm -rf \

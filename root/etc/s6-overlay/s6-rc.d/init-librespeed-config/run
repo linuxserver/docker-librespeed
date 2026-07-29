@@ -5,9 +5,32 @@
 mkdir -p \
     /config/www/img
 
-# create symlink to index.html
+# copy defaults if missing
+if [[ ! -f /config/www/index.html ]]; then
+    cp /app/www/public/index.html.bak /config/www/index.html
+fi
+if [[ ! -f /config/www/config.json ]]; then
+    cp /app/www/public/config.json.bak /config/www/config.json
+fi
+if [[ ! -f /config/www/settings.json ]]; then
+    cp /app/www/public/settings.json.bak /config/www/settings.json
+fi
+if [[ ! -f /config/www/server-list.json ]]; then
+    cp /app/www/public/server-list.json.bak /config/www/server-list.json
+fi
+
+# create symlinks
 if [[ ! -L /app/www/public/index.html ]]; then
     ln -sf /config/www/index.html /app/www/public/index.html
+fi
+if [[ ! -L /app/www/public/config.json ]]; then
+    ln -sf /config/www/config.json /app/www/public/config.json
+fi
+if [[ ! -L /app/www/public/settings.json ]]; then
+    ln -sf /config/www/settings.json /app/www/public/settings.json
+fi
+if [[ ! -L /app/www/public/server-list.json ]]; then
+    ln -sf /config/www/server-list.json /app/www/public/server-list.json
 fi
 
 # update templates

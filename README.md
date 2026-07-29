@@ -309,6 +309,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **29.07.26:** - Rebase to Alpine 3.24. Enable new UI with additional settings files available in the config folder.
 * **27.07.25:** - Rebase to Alpine 3.22.
 * **27.06.24:** - Rebase to Alpine 3.20. Existing users should update their nginx confs to avoid http2 deprecation warnings.
 * **23.12.23:** - Rebase to Alpine 3.19 with php 8.3.

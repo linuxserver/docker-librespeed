@@ -103,6 +103,7 @@ init_diagram: |
   "librespeed:latest" <- Base Images
 # changelog
 changelogs:
+  - {date: "29.07.26:", desc: "Rebase to Alpine 3.24. Enable new UI with additional settings files available in the config folder."}
   - {date: "27.07.25:", desc: "Rebase to Alpine 3.22."}
   - {date: "27.06.24:", desc: "Rebase to Alpine 3.20. Existing users should update their nginx confs to avoid http2 deprecation warnings."}
   - {date: "23.12.23:", desc: "Rebase to Alpine 3.19 with php 8.3."}
