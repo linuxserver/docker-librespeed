@@ -33,8 +33,8 @@ RUN \
   cp /app/www/public/index.html /defaults/www/ && \
   mv /app/www/public/index.html /app/www/public/index.html.bak && \
   mv /app/www/public/config.json /app/www/public/config.json.bak && \
-  mv /app/www/public/frontend/settings.json /app/www/public/frontend/settings.json.bak && \
-  mv /app/www/public/frontend/server-list.json /app/www/public/frontend/server-list.json.bak && \
+  mv /app/www/public/settings.json /app/www/public/settings.json.bak && \
+  mv /app/www/public/server-list.json /app/www/public/server-list.json.bak && \
   rm -rf /app/www/public/frontend/index.html && \
   cp -a /app/www/public/frontend/* /app/www/public/ && \
   printf "Linuxserver.io version: ${VERSION}\nBuild-date: ${BUILD_DATE}" > /build_version && \
