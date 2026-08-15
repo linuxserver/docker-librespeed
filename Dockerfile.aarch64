@@ -19,7 +19,7 @@ RUN \
   echo "**** install librespeed ****" && \
   if [ -z ${LIBRESPEED_RELEASE+x} ]; then \
     LIBRESPEED_RELEASE=$(curl -sX GET "https://api.github.com/repos/librespeed/speedtest/releases/latest" \
-    | awk '/tag_name/{print $4;exit}' FS='[""]'); \
+    | jq -r '.tag_name'); \
   fi && \
   mkdir -p \
     /app/www/public && \
