@@ -18,7 +18,7 @@ c-ares                  1.34.8-r0         apk
 ca-certificates         20260611-r0       apk       
 ca-certificates-bundle  20260611-r0       apk       
 catatonit               0.2.1-r0          apk       
-composer                2.10.2            binary    
+composer                2.10.3            binary    
 coreutils               9.11-r0           apk       
 coreutils-env           9.11-r0           apk       
 coreutils-fmt           9.11-r0           apk       
@@ -34,7 +34,7 @@ libattr                 2.5.2-r2          apk
 libavif                 1.4.1-r0          apk       
 libbsd                  0.12.2-r0         apk       
 libbz2                  1.0.8-r6          apk       
-libcrypto3              3.5.7-r0          apk       
+libcrypto3              3.5.8-r0          apk       
 libcurl                 8.21.0-r0         apk       
 libdav1d                1.5.3-r0          apk       
 libedit                 20260508.3.1-r1   apk       
@@ -53,7 +53,7 @@ libpsl                  0.21.5-r3         apk
 librespeed-speedtest    6.2.1             npm       
 libsharpyuv             1.6.0-r0          apk       
 libsm                   1.2.6-r0          apk       
-libssl3                 3.5.7-r0          apk       
+libssl3                 3.5.8-r0          apk       
 libstdc++               15.2.0-r5         apk       
 libunistring            1.4.2-r0          apk       
 libuuid                 2.42.1-r0         apk       
@@ -78,7 +78,7 @@ netcat-openbsd          1.234.1-r0        apk
 nghttp2-libs            1.69.0-r0         apk       
 nginx                   1.30.4-r1         apk       
 oniguruma               6.9.10-r0         apk       
-openssl                 3.5.7-r0          apk       
+openssl                 3.5.8-r0          apk       
 pcre2                   10.47-r1          apk       
 php85                   8.5.9-r0          apk       
 php85-common            8.5.9-r0          apk       
